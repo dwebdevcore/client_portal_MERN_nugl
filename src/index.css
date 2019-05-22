@@ -1,0 +1,54 @@
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0; 
+  
+  /*background: url('./static/images/bg.png');
+  background-size: cover;
+  background-repeat: repeat; 
+  
+  background: #F1F6F9;*/
+}
+
+#root {
+  height: 100%;
+} 
+
+#listingContainer {
+  background: url('./static/images/bg.png');
+  background-size: cover;
+  background-repeat: repeat; 
+}
+
+div.gm-style > div > div > div > div  {
+ box-shadow: "inset 0 7px 9px -7px rgba(0,0,0,0.7) !important";
+}
+
+a {
+  color: #3c80f6;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+@-webkit-keyframes GradientAnimator {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 51%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes GradientAnimator {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 51%}
+  100%{background-position:0% 50%}
+}
+@-o-keyframes GradientAnimator {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 51%}
+  100%{background-position:0% 50%}
+}
+@keyframes GradientAnimator { 
+  0%{background-position:0% 50%}
+  50%{background-position:100% 51%}
+  100%{background-position:0% 50%}
+}

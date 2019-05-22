@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\functions",
+    "\\functions\\api",
+    "\\functions\\database",
+    "\\functions\\http",
+    "\\src",
+    "\\src\\actions",
+    "\\src\\api",
+    "\\src\\firebase"
+  ],
+  "SelectedNode": "\\functions\\api\\config.js",
+  "PreviewInSolutionExplorer": false
+}

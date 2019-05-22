@@ -1,0 +1,11 @@
+{
+  "indexes": [
+     {
+       "collectionId": "reviews",
+       "fields": [
+         { "fieldPath": "listingId", "mode": "ASCENDING" },
+         { "fieldPath": "createdOn", "mode": "DESCENDING" }
+       ]
+     }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "nugl-da5c2",
+    "dev": "nugl-dev"
+  }
+}

@@ -1,0 +1,164 @@
+http://35.224.63.148/elasticsearch/
+listings PUT
+{
+  "mappings": {
+    "listing": {
+      "properties": {    
+        "suggest": {
+          "type": "completion"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "description": {
+          "type": "text"
+        },
+        "formattedAddress": {
+          "type": "keyword"
+        },
+        "address": {
+          "type": "keyword"
+        },
+        "city": {
+          "type": "keyword"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "zip": {
+          "type": "keyword"
+        },
+        "phone": {
+          "type": "keyword"
+        },
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    }  
+  }
+}
+
+
+// Docs for it: 
+https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
+
+// Mapping for autosuggest:
+http://35.224.63.148/elasticsearch/
+[indexname] / PUT
+{"mappings":{"shop":{"properties":{"suggest":{"type":"completion"}}}}}
+
+// Update existing mapping 
+http://35.224.63.148/elasticsearch/shops/_mapping/
+shop PUT
+{
+  "properties": {
+    "shopNameSuggest": { // field name
+      "type": "completion"
+    },
+    "output": {
+      "type": "keyword"
+    }
+  }
+}
+
+// Create indexname
+http://35.224.63.148/elasticsearch/autotest/
+[index]/[id]?refresh PUT
+{
+  "suggest": {
+    "input": [
+      "Nevermind",
+      "Nirvana"
+    ],
+    "weight": 34
+  }
+}
+
+// Search with fuzzyness
+http://35.224.63.148/elasticsearch/autotest/
+_search?pretty POST
+{
+  "_source": "shopNameSuggest", // FOR ONLY RETURNING PART OF DOCUMENT
+  "suggest": {
+    "dispensaries": {
+      "prefix": "LA Wonde",
+      "completion": {
+        "field": "shopNameSuggest",
+        "fuzzy": {
+          "fuzziness": 5
+        }
+      }
+    }
+  }
+}
+
+
+// Search with distance sort
+http://35.224.63.148/elasticsearch/listings/
+_search POST
+{
+  "query": {
+    "geo_bounding_box": {
+      "type": "indexed",
+      "location": {
+        "top_left": {
+          "lat": 34.1,
+          "lon": -118.5
+        },
+        "bottom_right": {
+          "lat": 33.9,
+          "lon": -118.13
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "_geo_distance": {
+        "location": {
+          "lat": 34.048432,
+          "lon": -118.443075
+        },
+        "order": "asc",
+        "unit": "mi",
+        "distance_type": "plane"
+      }
+    }
+  ]
+}
+
+
+
+
+
+// Notes: Reduce inputs, 
+
+
+
+{
+  "shopName": {
+    "input": [
+      "Weed Shop"
+    ],
+    "weight": 1
+  },
+  "address": "92 Pullman Way",
+  "city": "San Jose",
+  "state": "CA",
+  "zip": "95111",
+  "location": {
+    "lat": 37.290004,
+    "lon": -121.849646
+  },
+  "description": null,
+  "phone": "+14084402362",
+  "shopType": "Dispensary",
+  "photoUrl": "shops/otSgkleFspeZBjrLV44q/tropicana-01-1030x687.jpg"
+}
+
+
+{shopName: "Jeff's Shop", shopType: "Dispensary", description: "A cool shop", email: "e@jeffodle.com", address: "3422 Schooner Ave #3", city: "Marina Del Rey", state: "CA", zip: "90292", phone: "6617136234", location: { lat: 34.048432, lon: -118.443075}}

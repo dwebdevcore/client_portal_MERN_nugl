@@ -1,0 +1,22 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /profiles/{profileId} {
+      allow create;
+      allow read, update, delete: if request.auth.uid == profileId;      
+    }
+    match /listings/{listing} {
+      allow create, read;
+      allow update: if request.auth.uid == resource.data.userId; 
+      allow delete: if request.auth.uid == resource.data.userId; 
+    }
+    match /brands/{brand} {
+      allow create, read;
+      allow update: if request.auth.uid == resource.data.userId; 
+      allow delete: if request.auth.uid == resource.data.userId; 
+    }
+    match /reviews/{review} {
+      allow create, read;
+      allow update, delete: if request.auth.uid == resource.data.userId;      
+    }    
+  }
+}
